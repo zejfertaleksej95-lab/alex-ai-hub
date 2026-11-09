@@ -1,189 +1,120 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b16">
-<title>Alex AI Hub — Мир искусственного интеллекта</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080711">
+<meta name="description" content="ALEX AI HUB — каталог нейросетей, AI-инструментов и готовых промптов для работы, творчества и бизнеса.">
+<title>ALEX AI HUB — твоя AI-платформа</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#080b16;color:#f5f7ff;font-family:Arial,sans-serif}
-header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #20283b}
-.logo{font-size:23px;font-weight:900;color:#8b7cff}
-nav a{color:#b8bfd2;text-decoration:none;margin-left:18px;font-size:14px}
-.hero{text-align:center;padding:75px 20px 55px;background:radial-gradient(ellipse at top,#28215d,#080b16 70%)}
-.tag{color:#a99cff;font-size:13px;letter-spacing:2px}
-h1{font-size:clamp(36px,7vw,65px);margin:20px 0}
-h1 span{color:#9380ff}
-.hero p{color:#aab2c8;font-size:17px;line-height:1.6}
-.search{max-width:550px;margin:28px auto;display:flex;background:#171d30;border:1px solid #41436d;border-radius:14px;padding:5px}
-.search input{flex:1;min-width:0;background:none;border:0;outline:0;color:white;padding:13px;font-size:16px}
-button{cursor:pointer;border:0}
-.search button,.primary{background:#7965f5;color:white;padding:13px 20px;border-radius:10px;font-weight:bold}
-section{padding:45px 6%}
-.section-title{font-size:28px;margin-bottom:10px}
-.sub{color:#929bb2;margin-bottom:28px}
-.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
-.filter{background:#171d30;color:#c4c9dc;padding:10px 16px;border-radius:20px}
-.filter.active{background:#7965f5;color:white}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}
-.card{background:linear-gradient(145deg,#171d30,#101525);border:1px solid #29314a;border-radius:17px;padding:22px;transition:.2s}
-.card:hover{transform:translateY(-4px);border-color:#8170ff}
-.emoji{font-size:32px}
-.card h3{margin:14px 0 8px}
-.card p{color:#a2abc1;line-height:1.5;font-size:14px;min-height:42px}
-.card a{display:inline-block;color:#a99aff;text-decoration:none;margin-top:10px;font-weight:bold}
-.label{font-size:11px;color:#75dfb1;background:#16352e;padding:6px 9px;border-radius:20px}
-.prompt{background:#171d30;border:1px solid #303951;border-radius:15px;padding:20px;margin-bottom:14px}
-.prompt p{color:#c0c7da;line-height:1.6}
-.copy{background:#7965f5;color:white;border-radius:9px;padding:10px 16px}
-.banner{background:linear-gradient(110deg,#29205c,#171d38);border:1px solid #5546a3;border-radius:20px;padding:30px;text-align:center}
-.banner p{color:#c0c4d9}
-footer{text-align:center;padding:35px;color:#7e879e;border-top:1px solid #20283b;font-size:13px}
-.empty{color:#aab2c8;padding:25px}
-@media(max-width:600px){header{padding:18px 5%}nav a{margin-left:9px;font-size:12px}.hero{padding-top:55px}section{padding:35px 5%}}
+:root{color-scheme:dark;--bg:#080711;--panel:#111020;--panel2:#17152a;--line:#292541;--text:#f7f5ff;--muted:#aaa5c2;--purple:#9275ff;--cyan:#55d9f4;--green:#7ce5bd}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -18%,#292052 0,transparent 48%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit}button,input{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:17px max(5%,calc((100% - 1180px)/2));background:#090815dc;border-bottom:1px solid #292541;backdrop-filter:blur(18px)}
+.logo{font-size:20px;font-weight:900;letter-spacing:.4px;white-space:nowrap}.logo b{color:var(--purple)}nav{display:flex;gap:25px}nav a{text-decoration:none;color:#c8c2df;font-size:14px}nav a:hover{color:white}.nav-cta,.primary{background:linear-gradient(120deg,#8c69ff,#6548d9);color:white;border:0;border-radius:12px;padding:11px 17px;font-weight:750;text-decoration:none}
+.hero{max-width:1180px;margin:auto;padding:78px 24px 54px;text-align:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #51437e;background:#201a39;color:#c6b9ff;border-radius:30px;padding:8px 13px;font-size:12px;font-weight:800;letter-spacing:1.5px}.dot{width:7px;height:7px;border-radius:50%;background:#8e7aff;box-shadow:0 0 14px #9a81ff}
+h1{font-size:clamp(39px,7vw,76px);line-height:1.04;letter-spacing:-2.5px;margin:24px 0 17px}h1 span{background:linear-gradient(90deg,#b69cff,#67dff4);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:690px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.7}
+.search-wrap{max-width:660px;margin:30px auto 17px;display:flex;gap:9px;padding:7px;background:#171429;border:1px solid #49406c;border-radius:16px;box-shadow:0 12px 50px #0006}.search-wrap input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:white;padding:12px 13px;font-size:15px}.search-wrap input::placeholder{color:#817b9b}.search-wrap button{padding:0 22px;border-radius:11px}
+.quick{display:flex;justify-content:center;flex-wrap:wrap;gap:9px}.quick button{border:1px solid #34304e;background:#121020;color:#c5bfdc;border-radius:30px;padding:8px 13px;font-size:12px}.quick button:hover{border-color:var(--purple);color:white}
+.stats{display:flex;justify-content:center;gap:42px;margin-top:35px}.stat strong{display:block;font-size:21px}.stat span{color:var(--muted);font-size:12px}
+main{max-width:1180px;margin:auto;padding:0 24px}section{padding:46px 0;scroll-margin-top:80px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}.kicker{color:#a994ff;text-transform:uppercase;font-size:11px;font-weight:850;letter-spacing:1.8px}.section-title{font-size:clamp(25px,4vw,34px);letter-spacing:-.8px;margin:7px 0}.sub{color:var(--muted);margin:0;line-height:1.6;font-size:14px}.count{color:#b7afd7;font-size:13px;white-space:nowrap}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0}.filter{border:1px solid #34304e;background:#141225;color:#c6c0dc;padding:9px 15px;border-radius:30px;font-size:13px}.filter.active,.filter:hover{background:#765ce5;border-color:#927cff;color:white}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.tool-card{position:relative;display:flex;flex-direction:column;min-height:222px;padding:19px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,#17152a,#100f1c);transition:transform .2s,border-color .2s,box-shadow .2s}.tool-card:hover{transform:translateY(-4px);border-color:#7965cb;box-shadow:0 15px 35px #0005}.tool-top{display:flex;align-items:center;justify-content:space-between}.tool-icon{width:45px;height:45px;display:grid;place-items:center;border-radius:13px;background:#26203e;font-size:23px}.category{font-size:10px;color:#bdb2ee;background:#292141;border-radius:20px;padding:6px 9px}.tool-card h3{font-size:17px;margin:15px 0 6px}.tool-card p{font-size:13px;line-height:1.55;color:var(--muted);margin:0 0 17px;flex:1}.tool-actions{display:flex;align-items:center;justify-content:space-between;gap:10px}.visit{color:#c0aaff;text-decoration:none;font-size:13px;font-weight:750}.visit:hover{color:white}.fav{background:transparent;border:1px solid #39334f;color:#bdb5d7;border-radius:9px;width:34px;height:32px;font-size:17px}.fav.active{color:#ff8eb7;border-color:#8e4967;background:#3a1b30}.empty{grid-column:1/-1;padding:35px;text-align:center;color:var(--muted);border:1px dashed #48405f;border-radius:16px}
+.prompt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.prompt-card{background:linear-gradient(145deg,#17152a,#100f1c);border:1px solid var(--line);border-radius:16px;padding:19px}.prompt-card h3{font-size:16px;margin:0 0 10px}.prompt-card p{font-size:13px;line-height:1.65;color:#c0bad2;min-height:104px;margin:0 0 16px}.prompt-meta{font-size:11px;color:#a994ff;margin-bottom:10px}.copy{width:100%;background:#292141;border:1px solid #55457e;color:#e5ddff;border-radius:10px;padding:10px;font-size:13px;font-weight:750}.copy:hover{background:#3b2d63}
+.banner{margin:24px 0 55px;padding:32px;border:1px solid #51417f;border-radius:20px;text-align:center;background:radial-gradient(ellipse at top,#33265d,#171329 72%)}.banner h2{font-size:25px;margin:0 0 9px}.banner p{color:#c0b9d6;line-height:1.6;margin:0 auto 18px;max-width:600px}.banner a{display:inline-block}
+footer{border-top:1px solid #242039;padding:28px 24px;text-align:center;color:#89839f;font-size:12px}footer .logo{margin-bottom:8px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#24203a;border:1px solid #65558e;color:white;padding:12px 18px;border-radius:12px;transition:.2s;z-index:40;font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}
+.menu-toggle{display:none;background:transparent;color:white;border:1px solid #3b3554;border-radius:9px;padding:8px 10px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){header{padding:14px 5%}.menu-toggle{display:block}nav{display:none;position:absolute;top:62px;left:0;right:0;padding:18px 5%;background:#0d0b19;border-bottom:1px solid var(--line);flex-direction:column;gap:18px}nav.open{display:flex}.nav-cta{display:none}.hero{padding:58px 18px 36px}h1{letter-spacing:-1.5px}.hero p{font-size:15px}.search-wrap{gap:3px}.search-wrap button{padding:0 14px}.stats{gap:20px}.stat strong{font-size:18px}main{padding:0 17px}section{padding:34px 0}.section-head{align-items:start;flex-direction:column;gap:7px}.grid{gap:10px}.tool-card{padding:14px;min-height:230px}.tool-card h3{font-size:15px}.tool-card p{font-size:12px}.prompt-grid{grid-template-columns:1fr}.prompt-card p{min-height:0}.banner{padding:25px 18px}}
+@media(max-width:360px){.grid{grid-template-columns:1fr}.stats{gap:13px}}
 </style>
 </head>
 <body>
 <header>
-<div class="logo">✦ ALEX AI HUB</div>
-<nav>
-<a href="#tools">Инструменты</a>
-<a href="#prompts">Промпты</a>
-<a href="#about">О проекте</a>
-</nav>
+  <a class="logo" href="#" style="text-decoration:none">✦ ALEX <b>AI HUB</b></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">☰</button>
+  <nav id="nav"><a href="#tools">Каталог AI</a><a href="#prompts">Промпты</a><a href="#favorites">Избранное</a><a href="#about">О проекте</a></nav>
+  <a class="nav-cta" href="#tools">Исследовать AI ↗</a>
 </header>
-
 <div class="hero">
-<div class="tag">ТВОЙ МИР ИСКУССТВЕННОГО ИНТЕЛЛЕКТА</div>
-<h1>Открой возможности <span>AI</span></h1>
-<p>Лучшие нейросети, полезные инструменты и готовые промпты<br>в одном месте. Просто, бесплатно и удобно.</p>
-<div class="search">
-<input id="search" placeholder="Найти нейросеть или инструмент...">
-<button onclick="searchTools()">Найти</button>
+  <div class="eyebrow"><span class="dot"></span> ТВОЙ НАВИГАТОР В МИРЕ AI</div>
+  <h1>Открой новые возможности <span>искусственного интеллекта</span></h1>
+  <p>Каталог полезных нейросетей, инструменты для творчества и работы, а также готовые промпты. Всё важное для AI — в одном месте.</p>
+  <div class="search-wrap"><input id="search" type="search" placeholder="Найти нейросеть, задачу или инструмент..." aria-label="Поиск по каталогу"><button class="primary" id="searchButton">Найти</button></div>
+  <div class="quick"><button data-quick="text">✍️ Тексты</button><button data-quick="image">🎨 Изображения</button><button data-quick="video">🎬 Видео</button><button data-quick="audio">🎵 Музыка и голос</button><button data-quick="code">💻 Код</button></div>
+  <div class="stats"><div class="stat"><strong id="toolTotal">12+</strong><span>AI-инструментов</span></div><div class="stat"><strong>6</strong><span>направлений</span></div><div class="stat"><strong>24/7</strong><span>доступ к каталогу</span></div></div>
 </div>
-</div>
-
+<main>
 <section id="tools">
-<h2 class="section-title">🚀 AI-инструменты</h2>
-<p class="sub">Популярные нейросети для работы, творчества и обучения.</p>
-<div class="filters">
-<button class="filter active" onclick="filter('all',this)">Все</button>
-<button class="filter" onclick="filter('text',this)">Текст</button>
-<button class="filter" onclick="filter('image',this)">Изображения</button>
-<button class="filter" onclick="filter('other',this)">Другие</button>
-</div>
-<div class="grid" id="toolsGrid">
-<div class="card" data-category="text" data-name="chatgpt">
-<div class="emoji">🤖</div><h3>ChatGPT</h3>
-<span class="label">Есть бесплатный доступ</span>
-<p>Универсальный AI-помощник для текста, идей и программирования.</p>
-<a href="https://chatgpt.com" target="_blank">Открыть сайт →</a>
-</div>
-<div class="card" data-category="text" data-name="claude">
-<div class="emoji">🧠</div><h3>Claude</h3>
-<span class="label">Есть бесплатный доступ</span>
-<p>Работа с текстами, документами, анализом и кодом.</p>
-<a href="https://claude.ai" target="_blank">Открыть сайт →</a>
-</div>
-<div class="card" data-category="text" data-name="gemini">
-<div class="emoji">✨</div><h3>Google Gemini</h3>
-<span class="label">Есть бесплатный доступ</span>
-<p>AI от Google для поиска идей, ответов и творчества.</p>
-<a href="https://gemini.google.com" target="_blank">Открыть сайт →</a>
-</div>
-<div class="card" data-category="text" data-name="perplexity">
-<div class="emoji">🔎</div><h3>Perplexity</h3>
-<span class="label">Есть бесплатный доступ</span>
-<p>AI-поиск информации с источниками и объяснениями.</p>
-<a href="https://www.perplexity.ai" target="_blank">Открыть сайт →</a>
-</div>
-<div class="card" data-category="image" data-name="leonardo ai">
-<div class="emoji">🎨</div><h3>Leonardo AI</h3>
-<span class="label">Есть бесплатный доступ</span>
-<p>Создание изображений, артов и визуальных концепций.</p>
-<a href="https://leonardo.ai" target="_blank">Открыть сайт →</a>
-</div>
-<div class="card" data-category="image" data-name="ideogram">
-<div class="emoji">🖼️</div><h3>Ideogram</h3>
-<span class="label">Есть бесплатный доступ</span>
-<p>Генерация изображений и дизайнов с текстом.</p>
-<a href="https://ideogram.ai" target="_blank">Открыть сайт →</a>
-</div>
-<div class="card" data-category="other" data-name="suno">
-<div class="emoji">🎵</div><h3>Suno AI</h3>
-<span class="label">Есть бесплатный доступ</span>
-<p>Создание музыки и песен с помощью искусственного интеллекта.</p>
-<a href="https://suno.com" target="_blank">Открыть сайт →</a>
-</div>
-<div class="card" data-category="other" data-name="elevenlabs">
-<div class="emoji">🎙️</div><h3>ElevenLabs</h3>
-<span class="label">Есть бесплатный доступ</span>
-<p>AI-озвучка, синтез речи и работа с голосом.</p>
-<a href="https://elevenlabs.io" target="_blank">Открыть сайт →</a>
-</div>
-</div>
+  <div class="section-head"><div><div class="kicker">Подборка инструментов</div><h2 class="section-title">🚀 Каталог AI-сервисов</h2><p class="sub">Выбирай инструмент под свою задачу и переходи на официальный сайт.</p></div><div class="count" id="resultCount" aria-live="polite"></div></div>
+  <div class="filters" id="filters">
+    <button class="filter active" data-category="all">Все</button><button class="filter" data-category="text">Текст и поиск</button><button class="filter" data-category="image">Изображения</button><button class="filter" data-category="video">Видео</button><button class="filter" data-category="audio">Музыка и голос</button><button class="filter" data-category="code">Программирование</button>
+  </div>
+  <div class="grid" id="toolsGrid">
+    <article class="tool-card" data-category="text" data-name="chatgpt openai тексты помощник"><div class="tool-top"><div class="tool-icon">🤖</div><span class="category">Текст</span></div><h3>ChatGPT</h3><p>Универсальный AI-помощник для идей, текстов, анализа и повседневных задач.</p><div class="tool-actions"><a class="visit" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить ChatGPT в избранное" data-fav="chatgpt">♡</button></div></article>
+    <article class="tool-card" data-category="text" data-name="claude anthropic тексты анализ документы"><div class="tool-top"><div class="tool-icon">🧠</div><span class="category">Текст</span></div><h3>Claude</h3><p>Помощник для работы с текстами, документами, анализом и программированием.</p><div class="tool-actions"><a class="visit" href="https://claude.ai/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить Claude в избранное" data-fav="claude">♡</button></div></article>
+    <article class="tool-card" data-category="text" data-name="gemini google поиск тексты"><div class="tool-top"><div class="tool-icon">✨</div><span class="category">Текст</span></div><h3>Google Gemini</h3><p>AI-ассистент Google для вопросов, идей, работы с информацией и творчества.</p><div class="tool-actions"><a class="visit" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить Gemini в избранное" data-fav="gemini">♡</button></div></article>
+    <article class="tool-card" data-category="text" data-name="perplexity поиск источники исследования"><div class="tool-top"><div class="tool-icon">🔎</div><span class="category">Поиск</span></div><h3>Perplexity</h3><p>Поиск и исследование тем с ответами и ссылками на источники.</p><div class="tool-actions"><a class="visit" href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить Perplexity в избранное" data-fav="perplexity">♡</button></div></article>
+    <article class="tool-card" data-category="image" data-name="leonardo ai изображения дизайн арты"><div class="tool-top"><div class="tool-icon">🎨</div><span class="category">Изображения</span></div><h3>Leonardo AI</h3><p>Создание изображений, визуальных концепций и графики с помощью AI.</p><div class="tool-actions"><a class="visit" href="https://leonardo.ai/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить Leonardo AI в избранное" data-fav="leonardo">♡</button></div></article>
+    <article class="tool-card" data-category="image" data-name="ideogram картинки изображения текст дизайн"><div class="tool-top"><div class="tool-icon">🖼️</div><span class="category">Изображения</span></div><h3>Ideogram</h3><p>Генерация изображений и дизайнерских концепций, в том числе с текстом.</p><div class="tool-actions"><a class="visit" href="https://ideogram.ai/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить Ideogram в избранное" data-fav="ideogram">♡</button></div></article>
+    <article class="tool-card" data-category="video" data-name="runway видео генерация монтаж"><div class="tool-top"><div class="tool-icon">🎬</div><span class="category">Видео</span></div><h3>Runway</h3><p>AI-инструменты для генерации и творческой обработки видео.</p><div class="tool-actions"><a class="visit" href="https://runwayml.com/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить Runway в избранное" data-fav="runway">♡</button></div></article>
+    <article class="tool-card" data-category="video" data-name="pika видео генерация эффекты"><div class="tool-top"><div class="tool-icon">📹</div><span class="category">Видео</span></div><h3>Pika</h3><p>Создание коротких AI-видео и визуальных эффектов.</p><div class="tool-actions"><a class="visit" href="https://pika.art/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить Pika в избранное" data-fav="pika">♡</button></div></article>
+    <article class="tool-card" data-category="audio" data-name="suno музыка песни аудио"><div class="tool-top"><div class="tool-icon">🎵</div><span class="category">Музыка</span></div><h3>Suno</h3><p>Создание оригинальных музыкальных идей и песен с помощью AI.</p><div class="tool-actions"><a class="visit" href="https://suno.com/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить Suno в избранное" data-fav="suno">♡</button></div></article>
+    <article class="tool-card" data-category="audio" data-name="elevenlabs голос озвучка речь"><div class="tool-top"><div class="tool-icon">🎙️</div><span class="category">Голос</span></div><h3>ElevenLabs</h3><p>Синтез речи, озвучивание и инструменты для работы с голосом.</p><div class="tool-actions"><a class="visit" href="https://elevenlabs.io/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить ElevenLabs в избранное" data-fav="elevenlabs">♡</button></div></article>
+    <article class="tool-card" data-category="code" data-name="github copilot код программирование разработка"><div class="tool-top"><div class="tool-icon">💻</div><span class="category">Код</span></div><h3>GitHub Copilot</h3><p>AI-помощник разработчика для написания и объяснения кода.</p><div class="tool-actions"><a class="visit" href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить GitHub Copilot в избранное" data-fav="copilot">♡</button></div></article>
+    <article class="tool-card" data-category="code" data-name="cursor редактор код программирование"><div class="tool-top"><div class="tool-icon">⌨️</div><span class="category">Код</span></div><h3>Cursor</h3><p>Редактор кода с AI-функциями для разработки и работы с проектами.</p><div class="tool-actions"><a class="visit" href="https://cursor.com/" target="_blank" rel="noopener noreferrer">Открыть сервис ↗</a><button class="fav" aria-label="Добавить Cursor в избранное" data-fav="cursor">♡</button></div></article>
+  </div>
 </section>
-
 <section id="prompts">
-<h2 class="section-title">⚡ Библиотека промптов</h2>
-<p class="sub">Готовые инструкции для получения лучших результатов.</p>
-<div class="prompt">
-<h3>💡 Генератор идей</h3>
-<p>Ты опытный креативный эксперт. Предложи 10 оригинальных идей для проекта в сфере [ТЕМА]. Для каждой идеи объясни преимущества и способы реализации.</p>
-<button class="copy" onclick="copyPrompt(this)">Копировать промпт</button>
-</div>
-<div class="prompt">
-<h3>📚 Личный преподаватель</h3>
-<p>Ты мой личный преподаватель. Объясни мне тему [ТЕМА] простыми словами, приведи примеры и в конце задай 5 вопросов для проверки знаний.</p>
-<button class="copy" onclick="copyPrompt(this)">Копировать промпт</button>
-</div>
-<div class="prompt">
-<h3>💻 Помощник программиста</h3>
-<p>Ты опытный разработчик. Помоги мне создать [ПРОЕКТ]. Разбей задачу на этапы, напиши понятный код и объясни каждую часть.</p>
-<button class="copy" onclick="copyPrompt(this)">Копировать промпт</button>
-</div>
+  <div class="section-head"><div><div class="kicker">Готовые решения</div><h2 class="section-title">⚡ Библиотека промптов</h2><p class="sub">Скопируй шаблон, замени текст в квадратных скобках и используй в своей нейросети.</p></div></div>
+  <div class="prompt-grid">
+    <article class="prompt-card"><div class="prompt-meta">💡 ИДЕИ · БИЗНЕС</div><h3>Генератор идей</h3><p>Ты опытный стратег и креативный эксперт. Предложи 10 оригинальных идей для проекта в сфере [ТЕМА]. Для каждой идеи опиши целевую аудиторию, пользу, возможные риски и первые 3 шага реализации.</p><button class="copy">Копировать промпт</button></article>
+    <article class="prompt-card"><div class="prompt-meta">📚 ОБУЧЕНИЕ</div><h3>Личный преподаватель</h3><p>Ты мой терпеливый преподаватель. Объясни тему [ТЕМА] простым языком, приведи 3 практических примера, покажи типичные ошибки и в конце задай 5 вопросов для проверки понимания.</p><button class="copy">Копировать промпт</button></article>
+    <article class="prompt-card"><div class="prompt-meta">💻 РАЗРАБОТКА</div><h3>Помощник программиста</h3><p>Ты опытный разработчик. Помоги создать [ПРОЕКТ] на [ТЕХНОЛОГИИ]. Сначала уточни требования, затем разбей работу на этапы, предложи структуру файлов и пиши понятный проверяемый код.</p><button class="copy">Копировать промпт</button></article>
+    <article class="prompt-card"><div class="prompt-meta">📣 МАРКЕТИНГ</div><h3>Контент-план</h3><p>Ты специалист по контент-маркетингу. Составь план публикаций на 14 дней для [БРЕНД/НИША] в [СОЦСЕТЬ]. Для каждой публикации укажи тему, формат, цель, краткий сценарий и призыв к действию.</p><button class="copy">Копировать промпт</button></article>
+    <article class="prompt-card"><div class="prompt-meta">🖼️ ИЗОБРАЖЕНИЯ</div><h3>Промпт для изображения</h3><p>Создай подробный промпт для генерации изображения на тему [ИДЕЯ]. Опиши главный объект, окружение, композицию, освещение, цветовую палитру, стиль, ракурс и детали. Не добавляй надписи, если они не нужны.</p><button class="copy">Копировать промпт</button></article>
+    <article class="prompt-card"><div class="prompt-meta">🧭 ПРОДУКТИВНОСТЬ</div><h3>Планировщик задач</h3><p>Помоги организовать мою цель: [ЦЕЛЬ]. Разбей её на реалистичные этапы, оцени приоритеты, предложи план на неделю и укажи, как отслеживать прогресс. Если данных не хватает — задай один уточняющий вопрос.</p><button class="copy">Копировать промпт</button></article>
+  </div>
 </section>
-
-<section id="about">
-<div class="banner">
-<h2>Добро пожаловать в Alex AI Hub!</h2>
-<p>Изучай искусственный интеллект, открывай новые инструменты и создавай больше с помощью AI.</p>
-</div>
+<section id="favorites">
+  <div class="section-head"><div><div class="kicker">Твоя подборка</div><h2 class="section-title">♡ Избранные сервисы</h2><p class="sub">Сохраняй полезные инструменты кнопкой с сердцем в каталоге.</p></div></div>
+  <div class="grid" id="favoritesGrid"><div class="empty">Пока ничего нет. Добавь сервисы в избранное из каталога.</div></div>
 </section>
-
-<footer>
-<div class="logo">✦ ALEX AI HUB</div>
-<p>Твой помощник в мире искусственного интеллекта.</p>
-<p>© 2026 Alex AI Hub. Все права защищены.</p>
-</footer>
-
+<section id="about"><div class="banner"><h2>Твой мир искусственного интеллекта</h2><p>ALEX AI HUB помогает находить AI-инструменты, изучать новые возможности и быстрее переходить от идеи к результату.</p><a class="primary" href="#tools">Найти свой AI-инструмент ↗</a></div></section>
+</main>
+<footer><div class="logo">✦ ALEX <b>AI HUB</b></div><p>Твой навигатор в мире искусственного интеллекта.</p><p>© 2026 ALEX AI HUB · Независимый каталог AI-сервисов</p></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-function filter(category,button){
-document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
-button.classList.add('active');
-document.querySelectorAll('#toolsGrid .card').forEach(card=>{
-card.style.display=category==='all'||card.dataset.category===category?'block':'none';
-});
+const cards=[...document.querySelectorAll('#toolsGrid .tool-card')];
+const search=document.getElementById('search');
+let activeCategory='all',favorites=loadFavorites();
+function loadFavorites(){try{return JSON.parse(localStorage.getItem('alexAiFavorites')||'[]')}catch(e){return []}}
+function saveFavorites(){try{localStorage.setItem('alexAiFavorites',JSON.stringify(favorites))}catch(e){}}
+function showToast(message){const t=document.getElementById('toast');t.textContent=message;t.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove('show'),2100)}
+function render(){
+ const q=search.value.trim().toLowerCase();let visible=0;
+ cards.forEach(card=>{const matchCategory=activeCategory==='all'||card.dataset.category===activeCategory;const matchQuery=!q||(card.dataset.name+' '+card.innerText).toLowerCase().includes(q);const show=matchCategory&&matchQuery;card.hidden=!show;if(show)visible++});
+ document.getElementById('resultCount').textContent='Показано: '+visible;
+ document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.category===activeCategory));
+ renderFavorites();
 }
-function searchTools(){
-let q=document.getElementById('search').value.toLowerCase().trim();
-document.querySelectorAll('#toolsGrid .card').forEach(card=>{
-card.style.display=card.dataset.name.includes(q)||card.innerText.toLowerCase().includes(q)?'block':'none';
-});
+function renderFavorites(){
+ const grid=document.getElementById('favoritesGrid');grid.innerHTML='';
+ const chosen=cards.filter(c=>favorites.includes(c.querySelector('[data-fav]').dataset.fav));
+ if(!chosen.length){grid.innerHTML='<div class="empty">Пока ничего нет. Добавь сервисы в избранное из каталога.</div>';return}
+ chosen.forEach(card=>{const clone=card.cloneNode(true);clone.hidden=false;clone.querySelector('.fav').remove();grid.appendChild(clone)});
 }
-document.getElementById('search').addEventListener('keydown',e=>{
-if(e.key==='Enter')searchTools();
-});
-function copyPrompt(button){
-let text=button.parentElement.querySelector('p').innerText;
-if(navigator.clipboard){
-navigator.clipboard.writeText(text).then(()=>button.innerText='Скопировано ✓');
-}else{
-button.innerText='Выдели и скопируй текст';
-}
-}
+document.getElementById('filters').addEventListener('click',e=>{const b=e.target.closest('[data-category]');if(!b)return;activeCategory=b.dataset.category;render()});
+document.querySelectorAll('[data-quick]').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.quick;document.getElementById('tools').scrollIntoView({behavior:'smooth'});render()}));
+document.getElementById('searchButton').addEventListener('click',()=>{activeCategory='all';render();document.getElementById('tools').scrollIntoView({behavior:'smooth'})});
+search.addEventListener('input',()=>{activeCategory='all';render()});
+search.addEventListener('keydown',e=>{if(e.key==='Enter'){activeCategory='all';render();document.getElementById('tools').scrollIntoView({behavior:'smooth'})}});
+document.getElementById('toolsGrid').addEventListener('click',e=>{const b=e.target.closest('[data-fav]');if(!b)return;const id=b.dataset.fav;if(favorites.includes(id)){favorites=favorites.filter(x=>x!==id);showToast('Удалено из избранного')}else{favorites.push(id);showToast('Добавлено в избранное ✓')}saveFavorites();render()});
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{const text=b.parentElement.querySelector('p').innerText;try{await navigator.clipboard.writeText(text);showToast('Промпт скопирован ✓')}catch(e){const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();try{document.execCommand('copy');showToast('Промпт скопирован ✓')}catch(err){showToast('Не удалось скопировать — выдели текст вручную')}area.remove()}}));
+document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('nav').classList.toggle('open'));
+document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));
+document.getElementById('toolTotal').textContent=cards.length+'+';
+render();
 </script>
 </body>
 </html>
