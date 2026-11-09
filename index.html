@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b16">
+<title>Alex AI Hub — Мир искусственного интеллекта</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b16;color:#f5f7ff;font-family:Arial,sans-serif}
+header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #20283b}
+.logo{font-size:23px;font-weight:900;color:#8b7cff}
+nav a{color:#b8bfd2;text-decoration:none;margin-left:18px;font-size:14px}
+.hero{text-align:center;padding:75px 20px 55px;background:radial-gradient(ellipse at top,#28215d,#080b16 70%)}
+.tag{color:#a99cff;font-size:13px;letter-spacing:2px}
+h1{font-size:clamp(36px,7vw,65px);margin:20px 0}
+h1 span{color:#9380ff}
+.hero p{color:#aab2c8;font-size:17px;line-height:1.6}
+.search{max-width:550px;margin:28px auto;display:flex;background:#171d30;border:1px solid #41436d;border-radius:14px;padding:5px}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;color:white;padding:13px;font-size:16px}
+button{cursor:pointer;border:0}
+.search button,.primary{background:#7965f5;color:white;padding:13px 20px;border-radius:10px;font-weight:bold}
+section{padding:45px 6%}
+.section-title{font-size:28px;margin-bottom:10px}
+.sub{color:#929bb2;margin-bottom:28px}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
+.filter{background:#171d30;color:#c4c9dc;padding:10px 16px;border-radius:20px}
+.filter.active{background:#7965f5;color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}
+.card{background:linear-gradient(145deg,#171d30,#101525);border:1px solid #29314a;border-radius:17px;padding:22px;transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:#8170ff}
+.emoji{font-size:32px}
+.card h3{margin:14px 0 8px}
+.card p{color:#a2abc1;line-height:1.5;font-size:14px;min-height:42px}
+.card a{display:inline-block;color:#a99aff;text-decoration:none;margin-top:10px;font-weight:bold}
+.label{font-size:11px;color:#75dfb1;background:#16352e;padding:6px 9px;border-radius:20px}
+.prompt{background:#171d30;border:1px solid #303951;border-radius:15px;padding:20px;margin-bottom:14px}
+.prompt p{color:#c0c7da;line-height:1.6}
+.copy{background:#7965f5;color:white;border-radius:9px;padding:10px 16px}
+.banner{background:linear-gradient(110deg,#29205c,#171d38);border:1px solid #5546a3;border-radius:20px;padding:30px;text-align:center}
+.banner p{color:#c0c4d9}
+footer{text-align:center;padding:35px;color:#7e879e;border-top:1px solid #20283b;font-size:13px}
+.empty{color:#aab2c8;padding:25px}
+@media(max-width:600px){header{padding:18px 5%}nav a{margin-left:9px;font-size:12px}.hero{padding-top:55px}section{padding:35px 5%}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">✦ ALEX AI HUB</div>
+<nav>
+<a href="#tools">Инструменты</a>
+<a href="#prompts">Промпты</a>
+<a href="#about">О проекте</a>
+</nav>
+</header>
+
+<div class="hero">
+<div class="tag">ТВОЙ МИР ИСКУССТВЕННОГО ИНТЕЛЛЕКТА</div>
+<h1>Открой возможности <span>AI</span></h1>
+<p>Лучшие нейросети, полезные инструменты и готовые промпты<br>в одном месте. Просто, бесплатно и удобно.</p>
+<div class="search">
+<input id="search" placeholder="Найти нейросеть или инструмент...">
+<button onclick="searchTools()">Найти</button>
+</div>
+</div>
+
+<section id="tools">
+<h2 class="section-title">🚀 AI-инструменты</h2>
+<p class="sub">Популярные нейросети для работы, творчества и обучения.</p>
+<div class="filters">
+<button class="filter active" onclick="filter('all',this)">Все</button>
+<button class="filter" onclick="filter('text',this)">Текст</button>
+<button class="filter" onclick="filter('image',this)">Изображения</button>
+<button class="filter" onclick="filter('other',this)">Другие</button>
+</div>
+<div class="grid" id="toolsGrid">
+<div class="card" data-category="text" data-name="chatgpt">
+<div class="emoji">🤖</div><h3>ChatGPT</h3>
+<span class="label">Есть бесплатный доступ</span>
+<p>Универсальный AI-помощник для текста, идей и программирования.</p>
+<a href="https://chatgpt.com" target="_blank">Открыть сайт →</a>
+</div>
+<div class="card" data-category="text" data-name="claude">
+<div class="emoji">🧠</div><h3>Claude</h3>
+<span class="label">Есть бесплатный доступ</span>
+<p>Работа с текстами, документами, анализом и кодом.</p>
+<a href="https://claude.ai" target="_blank">Открыть сайт →</a>
+</div>
+<div class="card" data-category="text" data-name="gemini">
+<div class="emoji">✨</div><h3>Google Gemini</h3>
+<span class="label">Есть бесплатный доступ</span>
+<p>AI от Google для поиска идей, ответов и творчества.</p>
+<a href="https://gemini.google.com" target="_blank">Открыть сайт →</a>
+</div>
+<div class="card" data-category="text" data-name="perplexity">
+<div class="emoji">🔎</div><h3>Perplexity</h3>
+<span class="label">Есть бесплатный доступ</span>
+<p>AI-поиск информации с источниками и объяснениями.</p>
+<a href="https://www.perplexity.ai" target="_blank">Открыть сайт →</a>
+</div>
+<div class="card" data-category="image" data-name="leonardo ai">
+<div class="emoji">🎨</div><h3>Leonardo AI</h3>
+<span class="label">Есть бесплатный доступ</span>
+<p>Создание изображений, артов и визуальных концепций.</p>
+<a href="https://leonardo.ai" target="_blank">Открыть сайт →</a>
+</div>
+<div class="card" data-category="image" data-name="ideogram">
+<div class="emoji">🖼️</div><h3>Ideogram</h3>
+<span class="label">Есть бесплатный доступ</span>
+<p>Генерация изображений и дизайнов с текстом.</p>
+<a href="https://ideogram.ai" target="_blank">Открыть сайт →</a>
+</div>
+<div class="card" data-category="other" data-name="suno">
+<div class="emoji">🎵</div><h3>Suno AI</h3>
+<span class="label">Есть бесплатный доступ</span>
+<p>Создание музыки и песен с помощью искусственного интеллекта.</p>
+<a href="https://suno.com" target="_blank">Открыть сайт →</a>
+</div>
+<div class="card" data-category="other" data-name="elevenlabs">
+<div class="emoji">🎙️</div><h3>ElevenLabs</h3>
+<span class="label">Есть бесплатный доступ</span>
+<p>AI-озвучка, синтез речи и работа с голосом.</p>
+<a href="https://elevenlabs.io" target="_blank">Открыть сайт →</a>
+</div>
+</div>
+</section>
+
+<section id="prompts">
+<h2 class="section-title">⚡ Библиотека промптов</h2>
+<p class="sub">Готовые инструкции для получения лучших результатов.</p>
+<div class="prompt">
+<h3>💡 Генератор идей</h3>
+<p>Ты опытный креативный эксперт. Предложи 10 оригинальных идей для проекта в сфере [ТЕМА]. Для каждой идеи объясни преимущества и способы реализации.</p>
+<button class="copy" onclick="copyPrompt(this)">Копировать промпт</button>
+</div>
+<div class="prompt">
+<h3>📚 Личный преподаватель</h3>
+<p>Ты мой личный преподаватель. Объясни мне тему [ТЕМА] простыми словами, приведи примеры и в конце задай 5 вопросов для проверки знаний.</p>
+<button class="copy" onclick="copyPrompt(this)">Копировать промпт</button>
+</div>
+<div class="prompt">
+<h3>💻 Помощник программиста</h3>
+<p>Ты опытный разработчик. Помоги мне создать [ПРОЕКТ]. Разбей задачу на этапы, напиши понятный код и объясни каждую часть.</p>
+<button class="copy" onclick="copyPrompt(this)">Копировать промпт</button>
+</div>
+</section>
+
+<section id="about">
+<div class="banner">
+<h2>Добро пожаловать в Alex AI Hub!</h2>
+<p>Изучай искусственный интеллект, открывай новые инструменты и создавай больше с помощью AI.</p>
+</div>
+</section>
+
+<footer>
+<div class="logo">✦ ALEX AI HUB</div>
+<p>Твой помощник в мире искусственного интеллекта.</p>
+<p>© 2026 Alex AI Hub. Все права защищены.</p>
+</footer>
+
+<script>
+function filter(category,button){
+document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+button.classList.add('active');
+document.querySelectorAll('#toolsGrid .card').forEach(card=>{
+card.style.display=category==='all'||card.dataset.category===category?'block':'none';
+});
+}
+function searchTools(){
+let q=document.getElementById('search').value.toLowerCase().trim();
+document.querySelectorAll('#toolsGrid .card').forEach(card=>{
+card.style.display=card.dataset.name.includes(q)||card.innerText.toLowerCase().includes(q)?'block':'none';
+});
+}
+document.getElementById('search').addEventListener('keydown',e=>{
+if(e.key==='Enter')searchTools();
+});
+function copyPrompt(button){
+let text=button.parentElement.querySelector('p').innerText;
+if(navigator.clipboard){
+navigator.clipboard.writeText(text).then(()=>button.innerText='Скопировано ✓');
+}else{
+button.innerText='Выдели и скопируй текст';
+}
+}
+</script>
+</body>
+</html>
