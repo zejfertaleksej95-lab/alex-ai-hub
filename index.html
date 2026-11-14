@@ -27,7 +27,8 @@ footer{border-top:1px solid #242039;padding:28px 24px;text-align:center;color:#8
 .menu-toggle{display:none;background:transparent;color:white;border:1px solid #3b3554;border-radius:9px;padding:8px 10px}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){header{padding:14px 5%}.menu-toggle{display:block}nav{display:none;position:absolute;top:62px;left:0;right:0;padding:18px 5%;background:#0d0b19;border-bottom:1px solid var(--line);flex-direction:column;gap:18px}nav.open{display:flex}.nav-cta{display:none}.hero{padding:58px 18px 36px}h1{letter-spacing:-1.5px}.hero p{font-size:15px}.search-wrap{gap:3px}.search-wrap button{padding:0 14px}.stats{gap:20px}.stat strong{font-size:18px}main{padding:0 17px}section{padding:34px 0}.section-head{align-items:start;flex-direction:column;gap:7px}.grid{gap:10px}.tool-card{padding:14px;min-height:230px}.tool-card h3{font-size:15px}.tool-card p{font-size:12px}.prompt-grid{grid-template-columns:1fr}.prompt-card p{min-height:0}.banner{padding:25px 18px}}
-@media(max-width:360px){.grid{grid-template-columns:1fr}.stats{gap:13px}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.tool-card{min-height:0}.tool-card p{font-size:13px}.prompt-tools{align-items:stretch;flex-direction:column}.prompt-tools .count{white-space:normal}}
+@media(max-width:360px){.stats{gap:13px}}
 </style>
 </head>
 <body>
@@ -80,6 +81,17 @@ footer{border-top:1px solid #242039;padding:28px 24px;text-align:center;color:#8
   <div class="section-head"><div><div class="kicker">Готовые решения</div><h2 class="section-title">⚡ Библиотека промптов</h2><p class="sub">Скопируй шаблон, замени текст в квадратных скобках и используй в своей нейросети.</p></div></div>
 
   <div class="prompt-tools"><input id="promptSearch" type="search" placeholder="Найти промпт по задаче..." aria-label="Поиск по библиотеке промптов"><span id="promptCount" class="count" aria-live="polite"></span></div>
+  <div class="filters prompt-filters" id="promptFilters" aria-label="Фильтры промптов">
+    <button class="filter active" type="button" data-prompt-topic="all">Все промпты</button>
+    <button class="filter" type="button" data-prompt-topic="business">Бизнес</button>
+    <button class="filter" type="button" data-prompt-topic="marketing">Маркетинг</button>
+    <button class="filter" type="button" data-prompt-topic="content">Контент</button>
+    <button class="filter" type="button" data-prompt-topic="image">Изображения</button>
+    <button class="filter" type="button" data-prompt-topic="video">Видео</button>
+    <button class="filter" type="button" data-prompt-topic="code">Программирование</button>
+    <button class="filter" type="button" data-prompt-topic="productivity">Продуктивность</button>
+    <button class="filter" type="button" data-prompt-topic="learning">Обучение</button>
+  </div>
   <div class="prompt-grid">
     <article class="prompt-card"><div class="prompt-meta">💡 ИДЕИ · БИЗНЕС</div><h3>Генератор идей</h3><p>Ты опытный стратег и креативный эксперт. Предложи 10 оригинальных идей для проекта в сфере [ТЕМА]. Для каждой идеи опиши целевую аудиторию, пользу, возможные риски и первые 3 шага реализации.</p><button class="copy">Копировать промпт</button></article>
     <article class="prompt-card"><div class="prompt-meta">📚 ОБУЧЕНИЕ</div><h3>Личный преподаватель</h3><p>Ты мой терпеливый преподаватель. Объясни тему [ТЕМА] простым языком, приведи 3 практических примера, покажи типичные ошибки и в конце задай 5 вопросов для проверки понимания.</p><button class="copy">Копировать промпт</button></article>
@@ -104,6 +116,7 @@ footer{border-top:1px solid #242039;padding:28px 24px;text-align:center;color:#8
 <article class="prompt-card"><div class="prompt-meta">💻 ПРОГРАММИРОВАНИЕ</div><h3>План разработки функции</h3><p>Ты — ведущий разработчик. Спроектируй функцию [ФУНКЦИЯ] для проекта на [СТЕК]. Перечисли требования и пограничные случаи, предложи архитектуру, изменения файлов, реализацию и тест-кейсы. Сохраняй совместимость с существующим кодом. Не утверждай, что тесты пройдены, если они не запускались.</p><button class="copy">Копировать промпт</button></article>
 <article class="prompt-card"><div class="prompt-meta">🧭 ПРОДУКТИВНОСТЬ</div><h3>Разбор списка задач</h3><p>Ты — помощник по планированию. Сгруппируй мои задачи [СПИСОК] по проектам, оцени важность и срочность, найди то, что можно удалить, делегировать или объединить. Составь реалистичный план на 3 дня с резервом времени. Выдели одно действие с наибольшей пользой.</p><button class="copy">Копировать промпт</button></article>
   </div>
+  <div class="empty" id="promptEmpty" hidden>Ничего не найдено. Измени запрос или выбери другую категорию.</div>
 </section>
 <section id="favorites">
   <div class="section-head"><div><div class="kicker">Твоя подборка</div><h2 class="section-title">♡ Избранные сервисы</h2><p class="sub">Сохраняй полезные инструменты кнопкой с сердцем в каталоге.</p></div></div>
@@ -133,11 +146,34 @@ function render(){
  renderFavorites();
 }
 
+let activePromptTopic='all';
+function getPromptTopic(card){
+ const label=(card.querySelector('.prompt-meta')?.innerText||'').toLowerCase();
+ if(label.includes('бизнес')||label.includes('идеи'))return 'business';
+ if(label.includes('маркетинг'))return 'marketing';
+ if(label.includes('контент')||label.includes('статья'))return 'content';
+ if(label.includes('изображ'))return 'image';
+ if(label.includes('видео'))return 'video';
+ if(label.includes('разработ')||label.includes('программ'))return 'code';
+ if(label.includes('продуктив'))return 'productivity';
+ if(label.includes('обучен'))return 'learning';
+ return 'other';
+}
 function renderPrompts(){
  const q=promptSearch.value.trim().toLowerCase();let visible=0;
- promptCards.forEach(card=>{const show=!q||card.innerText.toLowerCase().includes(q);card.hidden=!show;if(show)visible++});
+ promptCards.forEach(card=>{
+  const topicMatch=activePromptTopic==='all'||getPromptTopic(card)===activePromptTopic;
+  const queryMatch=!q||card.innerText.toLowerCase().includes(q);
+  const show=topicMatch&&queryMatch;card.hidden=!show;if(show)visible++;
+ });
  document.getElementById('promptCount').textContent='Показано: '+visible+' из '+promptCards.length;
+ document.getElementById('promptEmpty').hidden=visible!==0;
+ document.querySelectorAll('#promptFilters [data-prompt-topic]').forEach(b=>b.classList.toggle('active',b.dataset.promptTopic===activePromptTopic));
 }
+document.getElementById('promptFilters').addEventListener('click',e=>{
+ const button=e.target.closest('[data-prompt-topic]');if(!button)return;
+ activePromptTopic=button.dataset.promptTopic;renderPrompts();
+});
 promptSearch.addEventListener('input',renderPrompts);
 
 function renderFavorites(){
@@ -149,7 +185,7 @@ function renderFavorites(){
 document.getElementById('filters').addEventListener('click',e=>{const free=e.target.closest('[data-free-filter]');if(free){freeOnly=!freeOnly;activeCategory='all';render();return}const b=e.target.closest('[data-category]');if(!b)return;freeOnly=false;activeCategory=b.dataset.category;render()});
 document.querySelectorAll('[data-quick]').forEach(b=>b.addEventListener('click',()=>{freeOnly=false;activeCategory=b.dataset.quick;document.getElementById('tools').scrollIntoView({behavior:'smooth'});render()}));
 document.getElementById('searchButton').addEventListener('click',()=>{activeCategory='all';render();document.getElementById('tools').scrollIntoView({behavior:'smooth'})});
-search.addEventListener('input',()=>{activeCategory='all';render()});
+search.addEventListener('input',render);
 search.addEventListener('keydown',e=>{if(e.key==='Enter'){activeCategory='all';render();document.getElementById('tools').scrollIntoView({behavior:'smooth'})}});
 document.getElementById('toolsGrid').addEventListener('click',e=>{const b=e.target.closest('[data-fav]');if(!b)return;const id=b.dataset.fav;if(favorites.includes(id)){favorites=favorites.filter(x=>x!==id);showToast('Удалено из избранного')}else{favorites.push(id);showToast('Добавлено в избранное ✓')}saveFavorites();render()});
 document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{const text=b.parentElement.querySelector('p').innerText;try{await navigator.clipboard.writeText(text);showToast('Промпт скопирован ✓')}catch(e){const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();try{document.execCommand('copy');showToast('Промпт скопирован ✓')}catch(err){showToast('Не удалось скопировать — выдели текст вручную')}area.remove()}}));
