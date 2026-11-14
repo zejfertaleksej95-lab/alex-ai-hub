@@ -33,7 +33,7 @@ footer{border-top:1px solid #242039;padding:28px 24px;text-align:center;color:#8
 <body>
 <header>
   <a class="logo" href="#" style="text-decoration:none">✦ ALEX <b>AI HUB</b></a>
-  <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">☰</button>
+  <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
   <nav id="nav"><a href="#tools">Каталог AI</a><a href="#prompts">Промпты</a><a href="#favorites">Избранное</a><a href="#about">О проекте</a></nav>
   <a class="nav-cta" href="#tools">Исследовать AI ↗</a>
 </header>
@@ -119,12 +119,14 @@ const promptCards=[...document.querySelectorAll('.prompt-card')];
 const promptSearch=document.getElementById('promptSearch');
 const search=document.getElementById('search');
 let activeCategory='all',freeOnly=false,favorites=loadFavorites();
-function loadFavorites(){try{return JSON.parse(localStorage.getItem('alexAiFavorites')||'[]')}catch(e){return []}}
+function loadFavorites(){try{const value=JSON.parse(localStorage.getItem('alexAiFavorites')||'[]');return Array.isArray(value)?value.filter(x=>typeof x==='string'):[]}catch(e){return []}}
 function saveFavorites(){try{localStorage.setItem('alexAiFavorites',JSON.stringify(favorites))}catch(e){}}
 function showToast(message){const t=document.getElementById('toast');t.textContent=message;t.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove('show'),2100)}
 function render(){
  const q=search.value.trim().toLowerCase();let visible=0;
- cards.forEach(card=>{const matchCategory=activeCategory==='all'||card.dataset.category===activeCategory;const matchQuery=!q||(card.dataset.name+' '+card.innerText).toLowerCase().includes(q);const matchFree=!freeOnly||card.dataset.free==='true';const show=matchCategory&&matchQuery&&matchFree;card.hidden=!show;if(show)visible++});
+ cards.forEach(card=>{const matchCategory=activeCategory==='all'||card.dataset.category===activeCategory;const matchQuery=!q||(card.dataset.name+' '+card.innerText).toLowerCase().includes(q);const matchFree=!freeOnly||card.dataset.free==='true';const show=matchCategory&&matchQuery&&matchFree;card.hidden=!show;if(show)visible++;
+  const fav=card.querySelector('[data-fav]');const selected=favorites.includes(fav.dataset.fav);fav.classList.toggle('active',selected);fav.setAttribute('aria-pressed',String(selected));fav.setAttribute('aria-label',(selected?'Убрать ':'Добавить ')+card.querySelector('h3').innerText+' '+(selected?'из':'в')+' избранное');
+ });
  document.getElementById('resultCount').textContent='Показано: '+visible;
  document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.category===activeCategory&&!freeOnly));
  document.querySelector('[data-free-filter]').classList.toggle('active',freeOnly);
@@ -151,7 +153,7 @@ search.addEventListener('input',()=>{activeCategory='all';render()});
 search.addEventListener('keydown',e=>{if(e.key==='Enter'){activeCategory='all';render();document.getElementById('tools').scrollIntoView({behavior:'smooth'})}});
 document.getElementById('toolsGrid').addEventListener('click',e=>{const b=e.target.closest('[data-fav]');if(!b)return;const id=b.dataset.fav;if(favorites.includes(id)){favorites=favorites.filter(x=>x!==id);showToast('Удалено из избранного')}else{favorites.push(id);showToast('Добавлено в избранное ✓')}saveFavorites();render()});
 document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{const text=b.parentElement.querySelector('p').innerText;try{await navigator.clipboard.writeText(text);showToast('Промпт скопирован ✓')}catch(e){const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();try{document.execCommand('copy');showToast('Промпт скопирован ✓')}catch(err){showToast('Не удалось скопировать — выдели текст вручную')}area.remove()}}));
-document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('nav').classList.toggle('open'));
+document.getElementById('menuToggle').addEventListener('click',()=>{const nav=document.getElementById('nav');const opened=nav.classList.toggle('open');document.getElementById('menuToggle').setAttribute('aria-expanded',String(opened));});
 document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));
 document.getElementById('toolTotal').textContent=cards.length+'+';
 render();
